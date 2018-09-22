@@ -40,6 +40,59 @@ public class TreeGrow {
 		fp.setAutoscrolls(true);
 		scrollFrame.setPreferredSize(fsize);
 	    g.add(scrollFrame);
+
+	    //add reset button
+	    JButton reset = new JButton();
+	    reset.setSize(400,400);
+   		reset.setVisible(true);
+    	reset.setText("Reset");
+    	g.add(reset);
+
+    	reset.addActionListener(new ActionListener() {
+  			 public void actionPerformed(ActionEvent arg0) {
+   				 System.out.println("reset");
+  			 }
+  		});
+
+    	//add Pause button
+	    JButton pause = new JButton();
+	    pause.setSize(400,400);
+   		pause.setVisible(true);
+    	pause.setText("Pause");
+    	g.add(pause);
+
+    	pause.addActionListener(new ActionListener() {
+  			 public void actionPerformed(ActionEvent arg0) {
+   				 System.out.println("pause");
+  			 }
+  		});
+
+    	//add Play button
+	    JButton play = new JButton();
+	    play.setSize(400,400);
+   		play.setVisible(true);
+    	play.setText("Play");
+    	g.add(play);
+
+    	play.addActionListener(new ActionListener() {
+  			 public void actionPerformed(ActionEvent arg0) {
+   				 System.out.println("play");
+  			 }
+  		});
+
+    	//add end button
+	    JButton end = new JButton();
+	    end.setSize(400,400);
+   		end.setVisible(true);
+    	end.setText("End");
+    	g.add(end);
+
+    	end.addActionListener(new ActionListener() {
+  			 public void actionPerformed(ActionEvent arg0) {
+   				 System.out.println("end");
+  			 }
+  		});
+
     	
       	frame.setLocationRelativeTo(null);  // Center window on screen.
       	frame.add(g); //add contents to window
@@ -47,6 +100,7 @@ public class TreeGrow {
         frame.setVisible(true);
         Thread fpt = new Thread(fp);
         fpt.start();
+
 	}
 	
 		
@@ -69,5 +123,7 @@ public class TreeGrow {
 		setupGUI(frameX, frameY, sundata.trees);
 		
 		// create and start simulation loop here as separate thread
+		Simulator sim = new Simulator(sundata);
+		sim.start();
 	}
 }

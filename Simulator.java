@@ -14,6 +14,11 @@ public class Simulator extends java.lang.Thread{
 		
 		int year = 0;
 
+		//reset all ext to 0.4:
+		for(Tree t : sundataLocal.trees){
+			t.setExt(0.4f);
+		}
+
 		while(true){ // while running (later should exit when END button pressed)
 			year ++;
 
@@ -28,12 +33,12 @@ public class Simulator extends java.lang.Thread{
 			System.out.println("year "+year);
 			sundataLocal.sunmap.resetShade();
 
-			try{
+			/*try{
 				Thread.sleep(1000);
 			}
 			catch(InterruptedException ex){
 				Thread.currentThread().interrupt();
-			}
+			}*/
 		}
 
 

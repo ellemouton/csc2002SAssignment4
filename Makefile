@@ -5,7 +5,7 @@
 JAVAC=/usr/bin/javac
 JAVA = java
 
-default: Tree.class Land.class ForestPanel.class TreeGrow.class SunData.class
+default: Tree.class Land.class ForestPanel.class TreeGrow.class SunData.class Simulator.class SunThread.class
 
 Tree.class: Tree.java
 	$(JAVAC) Tree.java
@@ -21,6 +21,13 @@ TreeGrow.class: TreeGrow.java
 
 SunData.class: SunData.java
 	$(JAVAC) SunData.java	
+
+Simulator.class: Simulator.java
+	$(JAVAC) Simulator.java
+
+SunThread.class: SunThread.java
+	$(JAVAC) SunThread.java
+
 
 
 clean:

@@ -6,7 +6,6 @@ public class SunThread extends RecursiveAction{
     int layerStart;
     int layerStop;
 
- //SunThread(layerStart,layerStop,sundata.trees,0, sundata.trees.length))
     static final int SEQUENTIAL_CUTOFF = 250001; //for a dataset of 1 million, this SC will result in 4 threads
     
     SunThread(int lstart, int lstop, int l, int h){
@@ -25,9 +24,7 @@ public class SunThread extends RecursiveAction{
                  Tree t = Simulator.sundataLocal.trees[i];
                  
                  if(t.inrange(layerStart,layerStop)){ //if this tree is in the current level
-                        //System.out.println("Processing tree: "+i+" "+t.getExt());
                         t.sungrow(Simulator.sundataLocal.sunmap);
-                        //System.out.println(t.getExt());
                  }
             
                           
