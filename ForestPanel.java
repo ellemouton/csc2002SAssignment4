@@ -8,7 +8,8 @@ import java.util.*;
 public class ForestPanel extends JPanel implements Runnable {
 	Tree[] forest;	// trees to render
 	List<Integer> rndorder; // permutation of tree indices so that rendering is less structured
-	
+
+
 	ForestPanel(Tree[] trees) {
 		forest=trees;
 	}
@@ -17,7 +18,7 @@ public class ForestPanel extends JPanel implements Runnable {
 		int width = getWidth();
 		int height = getHeight();
 		g.clearRect(0,0,width,height);
-		    
+
 		// draw the forest in different canopy passes
 		Random rnd = new Random(0); // providing the same seed gives trees consistent colouring
 
@@ -33,8 +34,8 @@ public class ForestPanel extends JPanel implements Runnable {
 					g.fillRect(forest[rt].getY() - (int) forest[rt].getExt(), forest[rt].getX() - (int) forest[rt].getExt(),
 						   2*(int) forest[rt].getExt()+1,2*(int) forest[rt].getExt()+1);
 				}
-				// g.setColor(Color.black);
-				// g.fillRect(forest[rt].getY(), forest[rt].getX(), 1, 1); // draw the trunk
+				 //g.setColor(Color.black);
+				 //g.fillRect(forest[rt].getY(), forest[rt].getX(), 1, 1); // draw the trunk
 			}
 			minh = maxh;  // next band of trees
 			maxh += 2.0f;
@@ -49,6 +50,7 @@ public class ForestPanel extends JPanel implements Runnable {
 			rndorder.add(l);
 		java.util.Collections.shuffle(rndorder);
 		
+		int counter = 0;
 		// render loop
 		while(true) {
 			repaint();

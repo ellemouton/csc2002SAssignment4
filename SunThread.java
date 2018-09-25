@@ -16,18 +16,16 @@ public class SunThread extends RecursiveAction{
     }
     
     protected void compute(){
-        if((high-low)<SEQUENTIAL_CUTOFF){ // this is run sequentially 
-            //System.out.println("im a new thread calculating for layer: "+layerStart+" to "+layerStop);
-                      
+        if((high-low)<SEQUENTIAL_CUTOFF){ // this is run sequentially           
             
+            //sequentially goes through the entire tree array to find and compute the trees in the layer
              for(int i=low;i<high;i++){
-                 Tree t = Simulator.sundataLocal.trees[i];
+                 Tree t = Simulator.sundataLocal.trees[i]; //gets a tree from the array of trees. 
                  
                  if(t.inrange(layerStart,layerStop)){ //if this tree is in the current level
-                        t.sungrow(Simulator.sundataLocal.sunmap);
+                        t.sungrow(Simulator.sundataLocal.sunmap);//call method in Tree class to grow this tree
                  }
             
-                          
              }
         }
         else{

@@ -63,9 +63,6 @@ public class Land{
 			for(int y = ypos-size; y<=ypos+size; y++){
 				if(0<=x && x<dimX && 0<=y && y<dimY){
 					float tempShade = getShade(x,y)*shadefraction;//INTERMEDIATE VALUE HERE. WILL NEED TO PROTECT
-
-					//System.out.println(getShade(x,y)+" becomes: "+tempShade);
-
 					setShade(x,y,tempShade);
 				}
 			}
