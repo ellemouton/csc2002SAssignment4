@@ -23,6 +23,7 @@ public class SunData{
 					sunmap.setFull(x,y,sc.nextFloat());	
 				}
 			sunmap.resetShade();
+			sunmap.splitFullIntoChunks();
 			
 			// load forest
 			int numt = sc.nextInt();

@@ -25,11 +25,11 @@ public
 		return ypos;
 	}
 	
-	float getExt() {
+	synchronized float getExt() {
 		return ext;
 	}
 	
-	void setExt(float e) {
+	synchronized void setExt(float e) {
 		ext = e;
 	}
 
@@ -40,6 +40,27 @@ public
 		int ylimit = land.getDimY();
 		int size = Math.round(ext);
 		numBlockThatCount=0;
+
+		//determine the LandChunks that the 4 corners are in and block those 4 chunks
+		//corner 1: position <xpos-size,  ypos-size> corner 2: position <xpos-size,  ypos+size> corner 3: position <xpos+size,  ypos-size> corner 4: position <xpos+size,  ypos+size>
+		int [] corner1 = land.getChunkCoordinates(xpos-size,  ypos-size);
+		int [] corner2 = land.getChunkCoordinates(xpos-size,  ypos+size);
+		int [] corner3 = land.getChunkCoordinates(xpos+size,  ypos-size);
+		int [] corner4 = land.getChunkCoordinates(xpos+size,  ypos+size);
+
+		/*
+		syncronized(splitSunArr[corner1[0]][corner1[1]]){
+			syncronized(splitSunArr[corner2[0]][corner2[1]]){
+				syncronized(splitSunArr[corner3[0]][corner3[1]]){
+					syncronized(splitSunArr[corner4[0]][corner4[1]]) {
+	
+	
+					}
+				}
+			}
+		}
+		
+		*/
 
 		//loops through the blocks that the tree covers and adds up the sunlight in each of those blocks
 		for(int x = xpos-size; x<=xpos+size; x++){
