@@ -42,7 +42,6 @@ public class Simulator extends java.lang.Thread{
 		//set year counter to 0
 		year = 0;
 
-
 		while(true){ //while the program is running
 
 			nextRun(); //calls nextRun() method to calculate new sun values for a new year which then grows all the trees

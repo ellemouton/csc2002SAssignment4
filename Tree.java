@@ -43,34 +43,54 @@ public
 
 		//determine the LandChunks that the 4 corners are in and block those 4 chunks
 		//corner 1: position <xpos-size,  ypos-size> corner 2: position <xpos-size,  ypos+size> corner 3: position <xpos+size,  ypos-size> corner 4: position <xpos+size,  ypos+size>
-		int [] corner1 = land.getChunkCoordinates(xpos-size,  ypos-size);
-		int [] corner2 = land.getChunkCoordinates(xpos-size,  ypos+size);
-		int [] corner3 = land.getChunkCoordinates(xpos+size,  ypos-size);
-		int [] corner4 = land.getChunkCoordinates(xpos+size,  ypos+size);
 
-		/*
-		syncronized(splitSunArr[corner1[0]][corner1[1]]){
-			syncronized(splitSunArr[corner2[0]][corner2[1]]){
-				syncronized(splitSunArr[corner3[0]][corner3[1]]){
-					syncronized(splitSunArr[corner4[0]][corner4[1]]) {
+		int c1x = xpos-size; int c1y = ypos-size;
+		int c2x = xpos-size; int c2y = ypos+size;
+		int c3x = xpos+size; int c3y = ypos-size;
+		int c4x = xpos+size; int c4y = ypos+size;
+
+		if (xpos-size<0){
+			c1x = 0;
+			c2x = 0;
+		}
+		if (ypos-size<0){
+			c1y =0;
+			c3y = 0;
+		}
+		if (xpos+size>=xlimit){
+			c3x = xlimit-1;
+			c4x = xlimit-1;
+		}
+		if (ypos+size>=ylimit){
+			c2y = ylimit-1;
+			c4y = ylimit-1;
+		}
+
+		int [] corner1 = land.getChunkCoordinates(c1x,  c1y);
+		int [] corner2 = land.getChunkCoordinates(c2x,  c2y);
+		int [] corner3 = land.getChunkCoordinates(c3x,  c3y);
+		int [] corner4 = land.getChunkCoordinates(c4x,  c4y);
+
 	
-	
+		synchronized(land.splitSunArr[corner1[0]][corner1[1]]){
+			synchronized(land.splitSunArr[corner2[0]][corner2[1]]){
+				synchronized(land.splitSunArr[corner3[0]][corner3[1]]){
+					synchronized(land.splitSunArr[corner4[0]][corner4[1]]) {
+
+						for(int x = xpos-size; x<=xpos+size; x++){
+			 				for(int y = ypos-size; y<=ypos+size; y++){
+								if(0<=x && x<xlimit && 0<=y && y<ylimit){
+									sun+=land.getShade(x,y);	//does a READ from SunData Land map. must NOT be allowed to do this if another tree with some of the same blocks are being processed.
+									numBlockThatCount++;
+								}
+							}
+						}
+
 					}
 				}
 			}
 		}
 		
-		*/
-
-		//loops through the blocks that the tree covers and adds up the sunlight in each of those blocks
-		for(int x = xpos-size; x<=xpos+size; x++){
-			for(int y = ypos-size; y<=ypos+size; y++){
-				if(0<=x && x<xlimit && 0<=y && y<ylimit){
-					sun+=land.getShade(x,y);	//does a READ from SunData Land map. must NOT be allowed to do this if another tree with some of the same blocks are being processed.
-					numBlockThatCount++;
-				}
-			}
-		}
 		return sun; //return total sunlight that tree gets
 	}
 	

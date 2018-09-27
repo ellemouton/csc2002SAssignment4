@@ -22,8 +22,8 @@ public class Land{
 		dimY = dy;
 		dimX = dx;
 
-		blockYdim = 50;
-		blockXdim = 50;
+		blockYdim = 5;
+		blockXdim = 5;
 
 		landChunkXdim =dimX/blockXdim;
 		landChunkYdim = dimY/blockYdim;
@@ -65,18 +65,22 @@ public class Land{
 	
 	// return the current sun exposure of the shaded landscape at position <x,y>
 	float getShade(int x, int y) {
-		return sunArrChange[x][y];
+		int [] info = getChunkCoordinates(x,y);
+		return (splitSunArr[info[0]][info[1]]).getSun(info[2],info[3]);
+		//return sunArrChange[x][y];
 	}
 	
 	// set the sun exposure of the shaded landscape at position <x,y> to <val>
 	void setShade(int x, int y, float val){
-		sunArrChange[x][y]=val;
+		int [] info = getChunkCoordinates(x,y);
+		splitSunArr[info[0]][info[1]].setSun(info[2],info[3],val);
+		//sunArrChange[x][y]=val;
 	}
 	
 	void splitFullIntoChunks(){
 		for(int x =0; x<landChunkXdim;x++){
 			for(int y = 0; y<landChunkYdim; y++){
-
+				
 				splitSunArr[x][y] = new LandChunk(blockXdim,blockYdim);
 
 				for(int i = 0;i<blockXdim;i++){
@@ -90,11 +94,15 @@ public class Land{
 	}
 
 	int [] getChunkCoordinates(int x, int y){ //returns chunk location, given the location on the enitre sunmap
-		int [] blockCoordinates  = new int[2];
-		blockCoordinates[0]= (int)Math.floor(x/blockXdim);
-		blockCoordinates[1]= (int)Math.floor(y/blockYdim);
+		int [] blockCoordinates  = new int[4];
+		blockCoordinates[0]= (int)Math.floor(x/blockXdim);// x position of the block in the splitSunArr array
+		blockCoordinates[1]= (int)Math.floor(y/blockYdim);// y position of the block in the splitSunArr array
+		blockCoordinates[2] = x - (blockXdim*((int)Math.floor(x/blockXdim))); //x position of the sun point within the block
+		blockCoordinates[3] = y - (blockYdim*((int)Math.floor(y/blockYdim))); //y position of the sun point within the block
 		return blockCoordinates;
 	}
+
+
 
 	// reduce the sun exposure of the shaded landscape to 10% of the original
 	// within the extent of <tree> 

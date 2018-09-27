@@ -22,8 +22,10 @@ public class SunData{
 				for(int y = 0; y < dimy; y++) {
 					sunmap.setFull(x,y,sc.nextFloat());	
 				}
-			sunmap.resetShade();
+
 			sunmap.splitFullIntoChunks();
+			sunmap.resetShade();
+			
 			
 			// load forest
 			int numt = sc.nextInt();
