@@ -4,7 +4,7 @@ public class Land{
 	
 	// sun exposure data here
 	float[][] sunArrV1; //origional sunmap read from text file
-	float[][] sunArrChange; //changing sunmap
+	//float[][] sunArrChange; //changing sunmap
 	LandChunk[][] splitSunArr;
 	int dimX;
 	int dimY;
@@ -17,13 +17,13 @@ public class Land{
 
 	Land(int dx, int dy) {
 		sunArrV1 = new float[dx][dy];
-		sunArrChange = new float[dx][dy];
+		//sunArrChange = new float[dx][dy];
 
 		dimY = dy;
 		dimX = dx;
 
-		blockYdim = 5;
-		blockXdim = 5;
+		blockYdim = 3;
+		blockXdim = 3;
 
 		landChunkXdim =dimX/blockXdim;
 		landChunkYdim = dimY/blockYdim;
@@ -80,7 +80,7 @@ public class Land{
 	void splitFullIntoChunks(){
 		for(int x =0; x<landChunkXdim;x++){
 			for(int y = 0; y<landChunkYdim; y++){
-				
+
 				splitSunArr[x][y] = new LandChunk(blockXdim,blockYdim);
 
 				for(int i = 0;i<blockXdim;i++){

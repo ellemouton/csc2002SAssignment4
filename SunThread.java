@@ -6,7 +6,7 @@ public class SunThread extends RecursiveAction{
     int layerStart;
     int layerStop;
 
-    static final int SEQUENTIAL_CUTOFF = 250001; //for a dataset of 1 million, this SC will result in 4 threads
+    static final int SEQUENTIAL_CUTOFF =1;//250001; //for a dataset of 1 million, this SC will result in 4 threads
     
     SunThread(int lstart, int lstop, int l, int h){
         layerStop = lstop;
@@ -16,8 +16,7 @@ public class SunThread extends RecursiveAction{
     }
     
     protected void compute(){
-        if((high-low)<SEQUENTIAL_CUTOFF){ // this is run sequentially           
-            
+        if((high-low)<=SEQUENTIAL_CUTOFF){ // this is run sequentially           
             //sequentially goes through the entire tree array to find and compute the trees in the layer
              for(int i=low;i<high;i++){
                  Tree t = Simulator.sundataLocal.trees[i]; //gets a tree from the array of trees. 

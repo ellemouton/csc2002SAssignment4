@@ -72,6 +72,7 @@ public
 		int [] corner4 = land.getChunkCoordinates(c4x,  c4y);
 
 	
+		// all 4 possible blocks that the tree could be in are blocked. These are the blocks where the trees corners are in.
 		synchronized(land.splitSunArr[corner1[0]][corner1[1]]){
 			synchronized(land.splitSunArr[corner2[0]][corner2[1]]){
 				synchronized(land.splitSunArr[corner3[0]][corner3[1]]){
@@ -85,7 +86,11 @@ public
 								}
 							}
 						}
-
+						float averageSun = sun/numBlockThatCount;
+						System.out.println("average sunlight: "+averageSun);
+						land.shadow(this);//update sunmap by passing it the tree
+						float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
+						setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.
 					}
 				}
 			}
@@ -102,9 +107,10 @@ public
 	// grow a tree according to its sun exposure
 	void sungrow(Land land) {
 		float averageSun = sunexposure(land)/numBlockThatCount; //calc average sun for tree by calling the sunexposure() method and dividing the total sunlight by the number of blocks that the tree covers
-		land.shadow(this);//update sunmap by passing it the tree
-		float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
-		setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.
+		//System.out.println(averageSun);
+		//land.shadow(this);//update sunmap by passing it the tree
+		//float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
+		//setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.
 	}
 }
 

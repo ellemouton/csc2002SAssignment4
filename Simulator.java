@@ -24,7 +24,7 @@ public class Simulator extends java.lang.Thread{
 
 	public void nextRun(){
 		year ++;
-
+		System.out.println("new year");
 		//seqeuntially go through layers from top to bottom
 		for(int i =18; i>=0;i-=2){
 			int layerStart =i;
