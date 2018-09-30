@@ -6,7 +6,7 @@ public class SunThread extends RecursiveAction{
     int layerStart;
     int layerStop;
 
-    static final int SEQUENTIAL_CUTOFF =1;//250001; //for a dataset of 1 million, this SC will result in 4 threads
+    static final int SEQUENTIAL_CUTOFF =250001; //for a dataset of 1 million, this SC will result in 4 threads
     
     SunThread(int lstart, int lstop, int l, int h){
         layerStop = lstop;

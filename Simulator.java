@@ -1,8 +1,11 @@
 import java.util.concurrent.ForkJoinPool;
+import java.util.*; 
+import java.io.*;
 
 public class Simulator extends java.lang.Thread{
 	static SunData sundataLocal;
 	int year;
+	static long startTime = 0;
 
 	Simulator(SunData sundata){
 		sundataLocal=sundata;
@@ -22,9 +25,15 @@ public class Simulator extends java.lang.Thread{
 		TreeGrow.resetbtn = false;
 	}
 
+	private static void tick(){
+        startTime = System.currentTimeMillis();    
+    }
+    private static float tock(){
+        return (System.currentTimeMillis()-startTime)/1000.0f;
+    }
+
 	public void nextRun(){
 		year ++;
-		System.out.println("new year");
 		//seqeuntially go through layers from top to bottom
 		for(int i =18; i>=0;i-=2){
 			int layerStart =i;
@@ -44,8 +53,9 @@ public class Simulator extends java.lang.Thread{
 
 		while(true){ //while the program is running
 
+			tick();
 			nextRun(); //calls nextRun() method to calculate new sun values for a new year which then grows all the trees
-
+			System.out.println(tock());
 			//update year counter text field
 			TreeGrow.yearLabel.setText("year "+year);
 

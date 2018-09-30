@@ -87,7 +87,7 @@ public
 							}
 						}
 						float averageSun = sun/numBlockThatCount;
-						System.out.println("average sunlight: "+averageSun);
+						//System.out.println("average sunlight: "+averageSun);
 						land.shadow(this);//update sunmap by passing it the tree
 						float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
 						setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.

@@ -22,8 +22,8 @@ public class Land{
 		dimY = dy;
 		dimX = dx;
 
-		blockYdim = 3;
-		blockXdim = 3;
+		blockYdim = 50;
+		blockXdim = 50;
 
 		landChunkXdim =dimX/blockXdim;
 		landChunkYdim = dimY/blockYdim;
