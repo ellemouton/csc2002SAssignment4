@@ -32,7 +32,7 @@ public class Simulator extends java.lang.Thread{
         return (System.currentTimeMillis()-startTime)/1000.0f;
     }
 
-	public void nextRun(){
+	public void nextYear(){
 		year ++;
 		//seqeuntially go through layers from top to bottom
 		for(int i =18; i>=0;i-=2){
@@ -53,23 +53,23 @@ public class Simulator extends java.lang.Thread{
 
 		while(true){ //while the program is running
 
-			tick();
-			nextRun(); //calls nextRun() method to calculate new sun values for a new year which then grows all the trees
-			System.out.println(tock());
+			//tick();
+			nextYear(); //calls nextYear() method to calculate new sun values for a new year which then grows all the trees
+			//System.out.println(tock());
+
 			//update year counter text field
 			TreeGrow.yearLabel.setText("year "+year);
 
 			//check buttons
-			//if reset button pressed, reset extents to 0.4
-			if(TreeGrow.resetbtn){
+			
+			if(TreeGrow.resetbtn){ //if reset button pressed, reset extents to 0.4
 				reset();
 			}
 			
-			if(TreeGrow.pausebtn){
+			if(TreeGrow.pausebtn){ //if pause button pressed then wait for play button to be pressed
 				TreeGrow.pausebtn = false;
 
-				while(!TreeGrow.playbtn){
-					//wait until play button is pressed to continue
+				while(!TreeGrow.playbtn){ //wait until play button is pressed to continue
 					try{
 						Thread.sleep(1);
 					}
@@ -80,7 +80,7 @@ public class Simulator extends java.lang.Thread{
 				TreeGrow.playbtn = false;
 			}
 
-			else if(TreeGrow.endbtn){
+			else if(TreeGrow.endbtn){ //end program if End button is pressed.
 				System.exit(0);
 			}
 

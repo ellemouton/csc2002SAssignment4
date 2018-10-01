@@ -32,9 +32,15 @@ public
 	synchronized void setExt(float e) {
 		ext = e;
 	}
+	
+	// is the tree extent within the provided range [minr, maxr)
+	boolean inrange(float minr, float maxr) {
+		return (ext >= minr && ext < maxr);
+	}
+	
+	// grow a tree according to its sun exposure
+	void sungrow(Land land) {
 
-	// return the average sunlight for the cells covered by the tree
-	float sunexposure(Land land){
 		float sun = 0;
 		int xlimit = land.getDimX();
 		int ylimit = land.getDimY();
@@ -86,8 +92,7 @@ public
 								}
 							}
 						}
-						float averageSun = sun/numBlockThatCount;
-						//System.out.println("average sunlight: "+averageSun);
+						float averageSun = sun/numBlockThatCount; 
 						land.shadow(this);//update sunmap by passing it the tree
 						float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
 						setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.
@@ -95,22 +100,6 @@ public
 				}
 			}
 		}
-		
-		return sun; //return total sunlight that tree gets
-	}
-	
-	// is the tree extent within the provided range [minr, maxr)
-	boolean inrange(float minr, float maxr) {
-		return (ext >= minr && ext < maxr);
-	}
-	
-	// grow a tree according to its sun exposure
-	void sungrow(Land land) {
-		float averageSun = sunexposure(land)/numBlockThatCount; //calc average sun for tree by calling the sunexposure() method and dividing the total sunlight by the number of blocks that the tree covers
-		//System.out.println(averageSun);
-		//land.shadow(this);//update sunmap by passing it the tree
-		//float tempExt = getExt()+(averageSun/growfactor); //does a READ of this tree (should be fine if re-entrant lock)
-		//setExt(tempExt); //sets a new extent for this tree. Performs a WRITE. This is fine becuase no other threads will use this particular trees extent.
 	}
 }
 

@@ -67,14 +67,12 @@ public class Land{
 	float getShade(int x, int y) {
 		int [] info = getChunkCoordinates(x,y);
 		return (splitSunArr[info[0]][info[1]]).getSun(info[2],info[3]);
-		//return sunArrChange[x][y];
 	}
 	
 	// set the sun exposure of the shaded landscape at position <x,y> to <val>
 	void setShade(int x, int y, float val){
 		int [] info = getChunkCoordinates(x,y);
 		splitSunArr[info[0]][info[1]].setSun(info[2],info[3],val);
-		//sunArrChange[x][y]=val;
 	}
 	
 	void splitFullIntoChunks(){
